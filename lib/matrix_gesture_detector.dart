@@ -65,8 +65,7 @@ class MatrixGestureDetector extends StatefulWidget {
     this.shouldRotate = true,
     this.clipChild = true,
     this.focalPointAlignment,
-  })  : assert(onMatrixUpdate != null),
-        assert(child != null),
+  })  : assert(child != null),
         super(key: key);
 
   @override
@@ -112,9 +111,10 @@ class _MatrixGestureDetectorState extends State<MatrixGestureDetector> {
   Widget build(BuildContext context) {
     Widget child =
         widget.clipChild ? ClipRect(child: widget.child) : widget.child;
+    bool isActive = widget.onMatrixUpdate != null;
     return GestureDetector(
-      onScaleStart: onScaleStart,
-      onScaleUpdate: onScaleUpdate,
+      onScaleStart: isActive ? onScaleStart : null,
+      onScaleUpdate: isActive ? onScaleUpdate : null,
       child: child,
     );
   }
